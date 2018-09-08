@@ -43,7 +43,7 @@ def genData( files, size = 200 ):
     i = 0
 
     for f in files:
-        img  = image.load_img( f, target_size = (size, size) )
+        img  = image.load_img( f, target_size = (size, size), grayscale = False )
         img  = image.img_to_array(img)/255
         X[i] = img
 
@@ -102,11 +102,12 @@ def plotLosses( losses ):
 
     return
 
-def plotGrid( data, title ):
+def plotGrid( data, title, size = (10, 10) ):
     """Plots a grid of images. Assumes that len(data) is a perfect square."""
 
     m = int(np.sqrt( len(data)) )
-    f, axarr = plt.subplots(m, m)
+    f, axarr = plt.subplots(m, m, figsize = size )
+
     k = 0
 
     f.suptitle( title )
@@ -120,5 +121,6 @@ def plotGrid( data, title ):
 
             k += 1
 
+    f.tight_layout( pad = 0.5 )
     plt.show()
 
