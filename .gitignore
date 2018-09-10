@@ -103,8 +103,13 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-
 #vim stuff:
 *.swo
 *.swp
+
+#Training/testing:
+catCroped/*
+cats/*
+trainFiles.txt
+valFiles.txt
 
