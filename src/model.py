@@ -3,10 +3,20 @@ from keras.layers import Input, Dense, Conv2D, MaxPooling2D, UpSampling2D,\
                          Conv2DTranspose, Flatten, Reshape, Lambda, ELU, BatchNormalization, Activation
 from keras.models import Model
 from keras.losses import binary_crossentropy, mse
-from keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau
 from keras.optimizers import Adam, SGD
 import keras.backend as kb
 
+
+def sampling( args ):
+    """Samples from a normal distribution with mean args[0] and log-variance args[1]."""
+
+    mean, logSigma = args
+    batch = kb.shape( mean )[0]
+    dim   = kb.int_shape( mean )[1]
+
+    epsilon = kb.random_normal( shape = (batch, dim) )
+
+    return mean + kb.exp(0.5 * logSigma ) * epsilon
 
 def genModel( batchSize = 16, codeSize  = 2048, imgSize = 256, filters = 64, colour = 3, lossType = "mse" ):
     """Generates the VAE model."""

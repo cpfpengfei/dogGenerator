@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import src.imageTrans as it
 import numpy as np
 from glob import glob
-import keras.backend as kb
 from keras.preprocessing import image
 
 
@@ -23,17 +22,6 @@ def writeFilesList( path, files ):
     with open( path, "w") as outFile:
         for f in files:
             outFile.write( f + "\n" )
-
-def sampling( args ):
-    """Samples from a normal distribution with mean args[0] and log-variance args[1]."""
-
-    mean, logSigma = args
-    batch = kb.shape( mean )[0]
-    dim   = kb.int_shape( mean )[1]
-
-    epsilon = kb.random_normal( shape = (batch, dim) )
-
-    return mean + kb.exp(0.5 * logSigma ) * epsilon
 
 def genData( files, size = 200 ):
     """Generates a set of training data and its associated labels."""
