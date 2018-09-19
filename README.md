@@ -1,7 +1,7 @@
 # catGenerator
 A variational autoencoder that generates images of cats.
 
-The cat moddel was trained on cropped versions of the data from the [Kaggle cat dataset](https://www.kaggle.com/crawford/cat-dataset) obtained from this [git repository](https://github.com/YutingZhang/lmdis-rep). The training data consistes of 9997 `100 * 100` pixel images of cat faces.
+The cat model was trained on cropped versions of the data from the [Kaggle cat dataset](https://www.kaggle.com/crawford/cat-dataset) obtained from this [git repository](https://github.com/YutingZhang/lmdis-rep). The training data consistes of 9997 `100 * 100` pixel images of cat faces.
 
 ## Training
 
@@ -15,5 +15,5 @@ The model may be tested by running `testModel.ipynb`.
 
 Individual cat images can be generated using the provied script `genCats.py`. The script can be run using
 
-```python3 genCats.py <desired number of cats>```
+```   python3 genCats.py <desired number of cats>```
 
