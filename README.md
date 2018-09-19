@@ -11,3 +11,9 @@ The model can be trained by running `trainModel.ipynb` with appropriate paramete
 
 The model may be tested by running `testModel.ipynb`.
 
+## Generating Images
+
+Individual cat images can be generated using the provied script `genCats.py`. The script can be run using
+
+```python3 genCats <desired number of cats>```
+
