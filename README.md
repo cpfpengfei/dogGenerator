@@ -15,5 +15,5 @@ The model may be tested by running `testModel.ipynb`.
 
 Individual cat images can be generated using the provied script `genCats.py`. The script can be run using
 
-```python3 genCats <desired number of cats>```
+```python3 genCats.py <desired number of cats>```
 
