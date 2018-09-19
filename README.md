@@ -1,12 +1,13 @@
 # catGenerator
-A variational autoencoder that generates images of cats or dogs.
+A variational autoencoder that generates images of cats.
 
-The cat moddel was trained on cropped versions of the data from the [Kaggle cat dataset](https://www.kaggle.com/crawford/cat-dataset) while the dog images are cropped versions of the data in the [Kaggle dog breed challenge](https://www.kaggle.com/c/dog-breed-identification). The cropping was performed using a modified version of the [TensorFlow object detection example](https://github.com/tensorflow/models/tree/master/research/object_detection).
+The cat moddel was trained on cropped versions of the data from the [Kaggle cat dataset](https://www.kaggle.com/crawford/cat-dataset) obtained from this [git repository](https://github.com/YutingZhang/lmdis-rep). The training data consistes of 9997 `100 * 100` pixel images of cat faces.
 
 ## Training
 
-The models can be trained by running `trainModel.ipynb` with appropriate parameters set (path to the image data). The weights that result from training the model with with default parameters for both cats and dogs are available in the `./weights/` directory.
+The model can be trained by running `trainModel.ipynb` with appropriate parameters set (path to the image data). The weights that result from training the model with default parameters are available in the `./weights/` directory. Due to github file size restrictions the weights given as a split archive, [7-zip](https://www.7-zip.org/download.html) is required to extract them.
 
 ## Testing
 
-The can be tested by running `testModel.ipnb`. The reconstructions produced are reasonable, however the generated images suffer from a few problems. These issues could perhaps be alleviated by tunning the architecture/hyperparameters. A better solution might be to crop the images to faces. This would hopefully allow the model to focus more on one aspect of the animals rather than trying to recreate entire bodies that can be in any position/size.
+The model may be tested by running `testModel.ipynb`.
+

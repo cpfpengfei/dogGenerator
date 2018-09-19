@@ -18,7 +18,7 @@ def sampling( args ):
 
     return mean + kb.exp(0.5 * logSigma ) * epsilon
 
-def genModel( batchSize = 16, codeSize  = 2048, imgSize = 256, filters = 64, colour = 3, lossType = "mse" ):
+def genModel( codeSize  = 2048, imgSize = 256, filters = 64, colour = 3, lossType = "mse" ):
     """Generates the VAE model."""
 
     #Build  the network:
@@ -26,22 +26,22 @@ def genModel( batchSize = 16, codeSize  = 2048, imgSize = 256, filters = 64, col
 
     inputs = Input( shape = ( imgSize, imgSize, colour,) )
     
-    conv1 = Conv2D( filters, 3, strides = 1, padding = 'same', use_bias = None,
+    conv1 = Conv2D( filters//8, 3, strides = 1, padding = 'same', use_bias = None,
                     data_format = "channels_last")( inputs )
     bn1   = ELU()(BatchNormalization()(conv1))
     pool1 = MaxPooling2D( data_format = "channels_last" )( bn1 )
     
-    conv2 = Conv2D( filters//2, 3, strides = 1, padding = 'same', use_bias = None,
+    conv2 = Conv2D( filters//4, 3, strides = 1, padding = 'same', use_bias = None,
                     data_format = "channels_last" )( pool1 )
     bn2   = ELU()(BatchNormalization()(conv2))
     pool2 = MaxPooling2D( data_format = "channels_last" )( bn2 )
     
-    conv3 = Conv2D( filters//4, 3, strides = 1, padding = 'same', use_bias = None,
+    conv3 = Conv2D( filters//2, 3, strides = 1, padding = 'same', use_bias = None,
                     data_format = "channels_last" )( pool2 )
     bn3   = ELU()(BatchNormalization()(conv3))
     pool3 = MaxPooling2D( data_format = "channels_last" )( bn3 )
     
-    conv4 = Conv2D( filters//8, 3, strides = 1, padding = 'same',
+    conv4 = Conv2D( filters, 3, strides = 1, padding = 'same',
                     data_format = "channels_last" )( pool3 )
     bn4   = ELU()(BatchNormalization()(conv4))
     pool4 = MaxPooling2D( data_format = "channels_last" )( bn4 )
@@ -61,23 +61,23 @@ def genModel( batchSize = 16, codeSize  = 2048, imgSize = 256, filters = 64, col
     dense2 = Dense( codeSize, use_bias = False )( decoderInput )
     bnd2 = ELU()(BatchNormalization()(dense2))
     
-    dense3 = Dense( (filters//8) * 16 * 16, use_bias = False )( bnd2 )
+    dense3 = Dense( filters * 8 * 8, use_bias = False )( bnd2 )
     bn6   = ELU()(BatchNormalization()(dense3))
     
-    unflatten = Reshape( (16, 16, filters//8) )(bn6 )
+    unflatten = Reshape( (8, 8, filters) )(bn6 )
     
     unpool2 = UpSampling2D( data_format = "channels_last" )( unflatten )
-    deconv2 = Conv2DTranspose( filters//4, 3, strides = 1, padding = 'same',
+    deconv2 = Conv2DTranspose( filters//2, 3, strides = 1, padding = 'same',
                                data_format = "channels_last" )( unpool2 )
     bn8     = ELU()(BatchNormalization()( deconv2 ))
     
     unpool3 = UpSampling2D( data_format = "channels_last" )( bn8 )
-    deconv3 = Conv2DTranspose( filters//2, 3, strides = 1, padding = 'same',
+    deconv3 = Conv2DTranspose( filters//4, 3, strides = 1, padding = 'same',
                                use_bias = None, data_format = "channels_last" )( unpool3 )
     bn9     = ELU()(BatchNormalization()( deconv3 ))
 
     unpool4 = UpSampling2D( data_format = "channels_last" )( bn9 )
-    deconv4 = Conv2DTranspose( filters, 3, strides = 1, padding = 'same', use_bias = None,
+    deconv4 = Conv2DTranspose( filters//8, 3, strides = 1, padding = 'same', use_bias = None,
                                data_format = "channels_last" )( unpool4 )
     bn10    = ELU()(BatchNormalization()( deconv4 ))
 

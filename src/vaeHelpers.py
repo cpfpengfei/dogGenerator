@@ -59,6 +59,9 @@ def genBatch( files, batchSize, imgSize = 200, rnd = False ):
                 if ( np.random.rand() < 0.5 ):
                     #X = it.mirrorImages( X, np.random.randint(0,2) )
                     X = it.mirrorImages( X, 0 )
+                    
+                if ( np.random.rand() < 0.5 ):
+                    X = it.rotateImages( X, np.random.uniform(-np.pi/18, np.pi/18) )
 
                 #other transforms:
                 #if ( np.random.rand() < 0.5 ):
