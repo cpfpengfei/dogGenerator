@@ -84,7 +84,7 @@ def genModel( codeSize  = 2048, imgSize = 256, filters = 64, lossType = "mse" ):
     if ( lossType == "mse" ):
         reconLoss = factor * mse( kb.flatten( inputs ), kb.flatten( fullPass ) )
 
-    elif ( lossType == "crossEnt"):
+    elif ( lossType == "crossEnt" ):
         reconLoss = factor * binary_crossentropy( kb.flatten( inputs ), kb.flatten( fullPass ) )
 
     klLoss = -0.5 * kb.sum(1 + logSigma - kb.square(mean) - kb.exp(logSigma), axis = -1 )
