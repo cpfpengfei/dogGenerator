@@ -9,10 +9,10 @@ from src.model import genModel
 def genCats( n ):
     """Generates n cat images."""
 
-    encCat, decCat, catVAE = genModel( imgSize = 128 )
+    encCat, decCat, catVAE = genModel( imgSize = 128, codeSize = 256, filters = 128 )
     catVAE.load_weights( "weights/catGen.hdf5" )
 
-    codes = np.random.normal( size = (n, 2048) )
+    codes = np.random.normal( size = (n, 256) )
     cats = decCat.predict( codes )
 
     return cats
