@@ -1,3 +1,4 @@
+# this is used to generate n number of dog images based on the autoencoder 
 
 import sys
 import matplotlib
@@ -6,25 +7,25 @@ import matplotlib.pyplot as plt
 import numpy as np
 from src.model import genModel
 
-def genCats( n ):
-    """Generates n cat images."""
+def genDogs( n ):
+    """Generates n dog images."""
 
-    encCat, decCat, catVAE = genModel( imgSize = 128, codeSize = 256, filters = 128 )
-    catVAE.load_weights( "weights/catGen.hdf5" )
+    encDog, decDog, dogVAE = genModel( imgSize = 128, codeSize = 256, filters = 128 )
+    dogVAE.load_weights( "weights/dogGen.hdf5" )
 
     codes = np.random.normal( size = (n, 256) )
-    cats = decCat.predict( codes )
+    dogs = decDog.predict( codes )
 
-    return cats
+    return dogs
 
-def saveCat( cat, label ):
+def saveDog( dog, label ):
 
     fig = plt.figure( figsize = (1, 1), dpi = 128 )
 
-    plt.imshow( cat, vmin = 0, vmax = 1  )
+    plt.imshow( dog, vmin = 0, vmax = 1  )
     plt.axis('off')
 
-    fig.savefig( "cat-{0}.png".format(label), dpi = 128 )
+    fig.savefig( "dog-{0}.png".format(label), dpi = 128 )
 
 if __name__ == "__main__":
 
@@ -37,8 +38,8 @@ if __name__ == "__main__":
         print( "Command-line arguement must be an integer." )
 
     else:
-        cats = genCats( n )
+        dogs = genDogs( n )
         
         for i in range( n ):
-            saveCat( cats[i], str(i) )
+            saveDog( dogs[i], str(i) )
 

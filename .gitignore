@@ -108,8 +108,9 @@ venv.bak/
 *.swp
 
 #Training/testing:
-catCroped/*
-cats/*
 trainFiles.txt
 valFiles.txt
+trainDogs.txt
+valDogs.txt
+Images/*
 
